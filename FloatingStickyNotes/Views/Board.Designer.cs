@@ -1,6 +1,6 @@
 ﻿namespace FloatingStickyNotes
 {
-  partial class Form1
+  partial class Board
   {
     /// <summary>
     /// Variable del diseñador necesaria.

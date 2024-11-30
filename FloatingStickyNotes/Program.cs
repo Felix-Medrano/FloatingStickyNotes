@@ -1,7 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using FloatingStickyNotes.Core;
+
+using System;
+using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace FloatingStickyNotes
@@ -14,9 +15,22 @@ namespace FloatingStickyNotes
     [STAThread]
     static void Main()
     {
+      var currentProcess = Process.GetCurrentProcess();
+      var existingProcess = Process.GetProcessesByName(currentProcess.ProcessName)
+                                         .FirstOrDefault(p => p.Id != currentProcess.Id);
+      if (existingProcess != null)
+      {
+        IntPtr handle = existingProcess.MainWindowHandle;
+        if (handle != IntPtr.Zero)
+        {
+          Win32.SwitchToThisWindow(handle);
+        }
+        return;
+      }
+
       Application.EnableVisualStyles();
       Application.SetCompatibleTextRenderingDefault(false);
-      Application.Run(new Form1());
+      Application.Run(new Board());
     }
   }
 }
