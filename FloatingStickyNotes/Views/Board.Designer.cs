@@ -44,6 +44,7 @@
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+      this.BackgroundImage = global::FloatingStickyNotes.Properties.Resources.BoardBackgroundCenter;
       this.ClientSize = new System.Drawing.Size(600, 400);
       this.Controls.Add(this.topBar);
       this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
