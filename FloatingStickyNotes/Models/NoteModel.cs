@@ -1,4 +1,6 @@
-﻿using System.Drawing;
+﻿using FloatingStickyNotes.Core;
+
+using System.Drawing;
 
 namespace FloatingStickyNotes.Models
 {
@@ -17,3 +19,4 @@ namespace FloatingStickyNotes.Models
       return this.PropertiesToString();
     }
   }
+}
