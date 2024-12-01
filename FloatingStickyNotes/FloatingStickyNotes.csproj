@@ -46,10 +46,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\Helper.cs" />
     <Compile Include="Core\MethodExtensions.cs" />
     <Compile Include="Core\Win32.cs" />
+    <Compile Include="CustomControls\FSNButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Lib\FSNConsts.cs" />
+    <Compile Include="Lib\FSNEnums.cs" />
     <Compile Include="Patterns\Observer\Interfaces\IObserver.cs" />
     <Compile Include="Patterns\Observer\Interfaces\ISubject.cs" />
+    <Compile Include="Patterns\Statse\BoardStates\BoardHideState.cs" />
+    <Compile Include="Patterns\Statse\BoardStates\BoardMaximizedState.cs" />
+    <Compile Include="Patterns\Statse\BoardStates\BoardRestoredState.cs" />
+    <Compile Include="Patterns\Statse\Interfaces\IState.cs" />
+    <Compile Include="Patterns\Statse\StateHandler.cs" />
     <Compile Include="Views\Board.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -87,6 +98,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\BoardBackgroundCenter.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cerrar-ventana.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\minimizar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\maximizar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\puntos.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\linea.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

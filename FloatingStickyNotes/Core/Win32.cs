@@ -7,6 +7,7 @@ namespace FloatingStickyNotes.Core
   {
     public const int HT_CAPTION = 0x2;
     public const int WM_NCLBUTTONDOWN = 0xA1;
+    public const int WM_SETREDRAW = 0x000B;
 
     /// <summary>
     /// Muestra la ventana indicada
@@ -16,9 +17,11 @@ namespace FloatingStickyNotes.Core
     [DllImport("user32.dll")]
     public static extern void SwitchToThisWindow(IntPtr hWnd);
 
-
     [DllImport("user32.dll")]
     public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
+
+    [DllImport("user32.dll")]
+    public static extern int SendMessage(IntPtr hWnd, int Msg, IntPtr wParam, IntPtr lParam);
 
     [DllImport("user32.dll")]
     public static extern bool ReleaseCapture();
