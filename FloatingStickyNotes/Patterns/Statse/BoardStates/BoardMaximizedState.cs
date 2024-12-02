@@ -8,11 +8,11 @@ namespace FloatingStickyNotes.Patterns.Statse.BoardStates
 {
   public class BoardMaximizedState : IState
   {
-    public void Action(Form form)
+    public void Action(Control control)
     {
+      var form = control as Form;
       form.Bounds = Screen.FromControl(form).WorkingArea;
       form.Location = Point.Empty;
-      form.BringToFront();
       Console.WriteLine("Formulario maximizado.");
     }
   }

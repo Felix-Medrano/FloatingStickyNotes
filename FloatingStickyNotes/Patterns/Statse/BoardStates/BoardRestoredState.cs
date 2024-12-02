@@ -1,4 +1,5 @@
-﻿using FloatingStickyNotes.Patterns.Statse.Interfaces;
+﻿using FloatingStickyNotes.Core;
+using FloatingStickyNotes.Patterns.Statse.Interfaces;
 
 using System;
 using System.Drawing;
@@ -19,12 +20,23 @@ namespace FloatingStickyNotes.Patterns.Statse.BoardStates
       );
     }
 
-    public void Action(Form form)
+    public BoardRestoredState(Control control)
     {
+      _defaultPosition = new Point(
+          Screen.PrimaryScreen.WorkingArea.Width - _defaultSize.Width,
+          Screen.PrimaryScreen.WorkingArea.Height - _defaultSize.Height
+      );
+      Action(control);
+    }
+
+    public void Action(Control control)
+    {
+      var form = control as Board;
       form.WindowState = FormWindowState.Normal;
+      form.IsBoardShowned = true;
       form.Size = _defaultSize;
       form.Location = _defaultPosition;
-      form.BringToFront();
+      Win32.SetForegroundWindow(form.Handle);
       Console.WriteLine("Formulario restaurado a tamaño y posición predeterminados.");
     }
   }

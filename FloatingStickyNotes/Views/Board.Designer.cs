@@ -28,20 +28,30 @@
     /// </summary>
     private void InitializeComponent()
     {
+      this.components = new System.ComponentModel.Container();
       System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Board));
       this.topBar = new System.Windows.Forms.Panel();
-      this.maximizeBtn = new FloatingStickyNotes.CustomControls.FSNButton();
-      this.closeBtn = new FloatingStickyNotes.CustomControls.FSNButton();
-      this.menuButton = new FloatingStickyNotes.CustomControls.FSNButton();
+      this.configPanel = new System.Windows.Forms.Panel();
+      this.button1 = new System.Windows.Forms.Button();
+      this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
+      this.notifyIconMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+      this.mostrarTableroToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+      this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.menuBtn = new FloatingStickyNotes.Controls.FSNButton();
+      this.winBtn = new FloatingStickyNotes.Controls.FSNButton();
+      this.closeBtn = new FloatingStickyNotes.Controls.FSNButton();
       this.topBar.SuspendLayout();
+      this.configPanel.SuspendLayout();
+      this.notifyIconMenu.SuspendLayout();
       this.SuspendLayout();
       // 
       // topBar
       // 
       this.topBar.BackColor = System.Drawing.Color.Gray;
-      this.topBar.Controls.Add(this.maximizeBtn);
+      this.topBar.Controls.Add(this.menuBtn);
+      this.topBar.Controls.Add(this.winBtn);
       this.topBar.Controls.Add(this.closeBtn);
-      this.topBar.Controls.Add(this.menuButton);
       this.topBar.Dock = System.Windows.Forms.DockStyle.Top;
       this.topBar.Location = new System.Drawing.Point(0, 0);
       this.topBar.Name = "topBar";
@@ -49,51 +59,99 @@
       this.topBar.TabIndex = 0;
       this.topBar.MouseDown += new System.Windows.Forms.MouseEventHandler(this.topBar_MouseDown);
       // 
-      // maximizeBtn
+      // configPanel
       // 
-      this.maximizeBtn.BackColor = System.Drawing.Color.Transparent;
-      this.maximizeBtn.FlatAppearance.BorderSize = 0;
-      this.maximizeBtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-      this.maximizeBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-      this.maximizeBtn.ImagePadding = new System.Windows.Forms.Padding(3);
-      this.maximizeBtn.ImageToDraw = global::FloatingStickyNotes.Properties.Resources.Maximizar;
-      this.maximizeBtn.Location = new System.Drawing.Point(538, 2);
-      this.maximizeBtn.Name = "maximizeBtn";
-      this.maximizeBtn.Size = new System.Drawing.Size(26, 26);
-      this.maximizeBtn.TabIndex = 5;
-      this.maximizeBtn.UseVisualStyleBackColor = false;
-      this.maximizeBtn.Click += new System.EventHandler(this.maximizeBtn_Click);
+      this.configPanel.Controls.Add(this.button1);
+      this.configPanel.Dock = System.Windows.Forms.DockStyle.Left;
+      this.configPanel.Location = new System.Drawing.Point(0, 30);
+      this.configPanel.Name = "configPanel";
+      this.configPanel.Size = new System.Drawing.Size(100, 370);
+      this.configPanel.TabIndex = 1;
+      this.configPanel.Visible = false;
+      // 
+      // button1
+      // 
+      this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+      this.button1.Location = new System.Drawing.Point(22, 16);
+      this.button1.Name = "button1";
+      this.button1.Size = new System.Drawing.Size(75, 23);
+      this.button1.TabIndex = 0;
+      this.button1.Text = "button1";
+      this.button1.UseVisualStyleBackColor = true;
+      // 
+      // notifyIcon1
+      // 
+      this.notifyIcon1.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+      this.notifyIcon1.BalloonTipText = "Crea notas flotantes";
+      this.notifyIcon1.BalloonTipTitle = "Float Sticky Notes";
+      this.notifyIcon1.ContextMenuStrip = this.notifyIconMenu;
+      this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
+      this.notifyIcon1.Text = "Float Sticky Notes";
+      this.notifyIcon1.Visible = true;
+      this.notifyIcon1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseDoubleClick);
+      // 
+      // notifyIconMenu
+      // 
+      this.notifyIconMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mostrarTableroToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.salirToolStripMenuItem});
+      this.notifyIconMenu.Name = "notifyIconMenu";
+      this.notifyIconMenu.Size = new System.Drawing.Size(157, 54);
+      // 
+      // mostrarTableroToolStripMenuItem
+      // 
+      this.mostrarTableroToolStripMenuItem.Name = "mostrarTableroToolStripMenuItem";
+      this.mostrarTableroToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
+      this.mostrarTableroToolStripMenuItem.Text = "Mostrar Tablero";
+      this.mostrarTableroToolStripMenuItem.Click += new System.EventHandler(this.mostrarTableroToolStripMenuItem_Click);
+      // 
+      // toolStripSeparator1
+      // 
+      this.toolStripSeparator1.Name = "toolStripSeparator1";
+      this.toolStripSeparator1.Size = new System.Drawing.Size(153, 6);
+      // 
+      // salirToolStripMenuItem
+      // 
+      this.salirToolStripMenuItem.Name = "salirToolStripMenuItem";
+      this.salirToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
+      this.salirToolStripMenuItem.Text = "Salir";
+      this.salirToolStripMenuItem.Click += new System.EventHandler(this.salirToolStripMenuItem_Click);
+      // 
+      // menuBtn
+      // 
+      this.menuBtn.BackColor = System.Drawing.Color.Gray;
+      this.menuBtn.Image = global::FloatingStickyNotes.Properties.Resources.PanelMenuOpen;
+      this.menuBtn.ImagePadding = new System.Windows.Forms.Padding(0);
+      this.menuBtn.Location = new System.Drawing.Point(8, 2);
+      this.menuBtn.Name = "menuBtn";
+      this.menuBtn.Size = new System.Drawing.Size(26, 26);
+      this.menuBtn.TabIndex = 3;
+      this.menuBtn.Click += new System.EventHandler(this.menuBtn_Click);
+      // 
+      // winBtn
+      // 
+      this.winBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+      this.winBtn.BackColor = System.Drawing.Color.Gray;
+      this.winBtn.Image = global::FloatingStickyNotes.Properties.Resources.Maximizar;
+      this.winBtn.ImagePadding = new System.Windows.Forms.Padding(3);
+      this.winBtn.Location = new System.Drawing.Point(536, 2);
+      this.winBtn.Name = "winBtn";
+      this.winBtn.Size = new System.Drawing.Size(26, 26);
+      this.winBtn.TabIndex = 2;
+      this.winBtn.Click += new System.EventHandler(this.maximizeBtn_Click);
       // 
       // closeBtn
       // 
-      this.closeBtn.BackColor = System.Drawing.Color.Transparent;
-      this.closeBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-      this.closeBtn.FlatAppearance.BorderSize = 0;
-      this.closeBtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-      this.closeBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+      this.closeBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+      this.closeBtn.BackColor = System.Drawing.Color.Gray;
+      this.closeBtn.Image = global::FloatingStickyNotes.Properties.Resources.Cerrar;
       this.closeBtn.ImagePadding = new System.Windows.Forms.Padding(0);
-      this.closeBtn.ImageToDraw = global::FloatingStickyNotes.Properties.Resources.Cerrar;
-      this.closeBtn.Location = new System.Drawing.Point(570, 2);
+      this.closeBtn.Location = new System.Drawing.Point(566, 2);
       this.closeBtn.Name = "closeBtn";
       this.closeBtn.Size = new System.Drawing.Size(26, 26);
-      this.closeBtn.TabIndex = 2;
-      this.closeBtn.UseVisualStyleBackColor = false;
-      this.closeBtn.Click += new System.EventHandler(this.fsnButton1_Click);
-      // 
-      // menuButton
-      // 
-      this.menuButton.BackColor = System.Drawing.Color.Transparent;
-      this.menuButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("menuButton.BackgroundImage")));
-      this.menuButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-      this.menuButton.FlatAppearance.BorderSize = 0;
-      this.menuButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-      this.menuButton.ImagePadding = new System.Windows.Forms.Padding(0);
-      this.menuButton.ImageToDraw = null;
-      this.menuButton.Location = new System.Drawing.Point(8, 2);
-      this.menuButton.Name = "menuButton";
-      this.menuButton.Size = new System.Drawing.Size(26, 26);
-      this.menuButton.TabIndex = 4;
-      this.menuButton.UseVisualStyleBackColor = false;
+      this.closeBtn.TabIndex = 1;
+      this.closeBtn.Click += new System.EventHandler(this.closeBtn_Click);
       // 
       // Board
       // 
@@ -101,11 +159,16 @@
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
       this.ClientSize = new System.Drawing.Size(600, 400);
+      this.Controls.Add(this.configPanel);
       this.Controls.Add(this.topBar);
       this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
       this.Name = "Board";
+      this.ShowInTaskbar = false;
       this.Text = "Form1";
+      this.TopMost = true;
       this.topBar.ResumeLayout(false);
+      this.configPanel.ResumeLayout(false);
+      this.notifyIconMenu.ResumeLayout(false);
       this.ResumeLayout(false);
 
     }
@@ -113,9 +176,16 @@
     #endregion
 
     private System.Windows.Forms.Panel topBar;
-    private CustomControls.FSNButton closeBtn;
-    private CustomControls.FSNButton menuButton;
-    private CustomControls.FSNButton maximizeBtn;
+    private Controls.FSNButton winBtn;
+    private Controls.FSNButton closeBtn;
+    private Controls.FSNButton menuBtn;
+    private System.Windows.Forms.Panel configPanel;
+    private System.Windows.Forms.Button button1;
+    private System.Windows.Forms.NotifyIcon notifyIcon1;
+    private System.Windows.Forms.ContextMenuStrip notifyIconMenu;
+    private System.Windows.Forms.ToolStripMenuItem mostrarTableroToolStripMenuItem;
+    private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+    private System.Windows.Forms.ToolStripMenuItem salirToolStripMenuItem;
   }
 }
 

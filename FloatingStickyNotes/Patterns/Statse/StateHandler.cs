@@ -18,9 +18,9 @@ namespace FloatingStickyNotes.Patterns.Statse
       _currentState = newState;
     }
 
-    public void ApplyState(Form form)
+    public void ApplyState(Control control)
     {
-      _currentState.Action(form);
+      _currentState.Action(control);
     }
   }
 }

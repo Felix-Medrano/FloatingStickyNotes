@@ -25,5 +25,8 @@ namespace FloatingStickyNotes.Core
 
     [DllImport("user32.dll")]
     public static extern bool ReleaseCapture();
+
+    [DllImport("user32.dll")]
+    public static extern bool SetForegroundWindow(IntPtr hWnd);
   }
 }

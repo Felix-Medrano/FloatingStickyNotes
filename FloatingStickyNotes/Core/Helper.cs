@@ -7,6 +7,6 @@ namespace FloatingStickyNotes.Core
   public static class Helper
   {
     public static FSNConsts FSNConsts = new FSNConsts();
-    public static StateHandler BoardStateHandler = new StateHandler(new BoardRestoredState());
+    public static StateHandler BoardStateHandler = new StateHandler(new BoardHideState());
   }
 }

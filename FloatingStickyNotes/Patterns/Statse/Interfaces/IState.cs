@@ -4,6 +4,6 @@ namespace FloatingStickyNotes.Patterns.Statse.Interfaces
 {
   public interface IState
   {
-    void Action(Form form);
+    void Action(Control control);
   }
 }

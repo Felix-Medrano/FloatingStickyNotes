@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Reflection;
 using System.Text;
 
@@ -81,6 +82,24 @@ namespace FloatingStickyNotes.Core
       }
 
       return sb.ToString();
+    }
+  }
+
+  public static class GraphicsExtensions
+  {
+    public static void AddRoundedRectangle(this GraphicsPath path, Rectangle bounds, int radius)
+    {
+      int diameter = radius * 2;
+      Size size = new Size(diameter, diameter);
+      Rectangle arc = new Rectangle(bounds.Location, size);
+      path.AddArc(arc, 180, 90);
+      arc.X = bounds.Right - diameter;
+      path.AddArc(arc, 270, 90);
+      arc.Y = bounds.Bottom - diameter;
+      path.AddArc(arc, 0, 90);
+      arc.X = bounds.Left;
+      path.AddArc(arc, 90, 90);
+      path.CloseFigure();
     }
   }
 }

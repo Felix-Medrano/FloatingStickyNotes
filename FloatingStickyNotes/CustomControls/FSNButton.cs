@@ -1,112 +1,141 @@
-﻿using System;
+﻿
+using FloatingStickyNotes.Core;
+
+using System;
+using System.ComponentModel;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
-namespace FloatingStickyNotes.CustomControls
+namespace FloatingStickyNotes.Controls
 {
-  public class FSNButton : Button
+  public class FSNButton : Control
   {
-    private bool isPressed = false;
-    private Point originalLocation;
-    private Padding imagePadding;
-    private Image imageToDraw;
+    public new event EventHandler Click;
 
-    public Padding ImagePadding
+    private Image _image;
+    private Padding _imagePadding = new Padding(0);
+
+    private bool isPressed = false;
+    private bool isHovered = false;
+
+    public Image Image
     {
-      get { return imagePadding; }
+      get { return _image; }
       set
       {
-        imagePadding = value;
-        Invalidate(); // Redraw the control when padding changes
+        _image = value;
+        Invalidate();
       }
     }
 
-    public Image ImageToDraw
+    [Category("Appearance")]
+    [Description("Gets or sets the padding for the image inside the button.")]
+    public Padding ImagePadding
     {
-      get { return imageToDraw; }
+      get { return _imagePadding; }
       set
       {
-        imageToDraw = value;
-        Invalidate(); // Redraw the control when the image changes
+        _imagePadding = value;
+        Invalidate();
       }
     }
 
     public FSNButton()
     {
-      FlatStyle = FlatStyle.Flat;
-      FlatAppearance.BorderSize = 0;
-      Text = "";
-      BackColor = Color.Transparent;
+      this.SetStyle(ControlStyles.SupportsTransparentBackColor, true);
+      SetStyle(ControlStyles.AllPaintingInWmPaint |
+               ControlStyles.OptimizedDoubleBuffer |
+               ControlStyles.ResizeRedraw |
+               ControlStyles.UserPaint, true);
+      Size = new Size(32, 32);
     }
 
-    protected override void OnPaint(PaintEventArgs pevent)
+    protected override void OnPaint(PaintEventArgs e)
     {
-      base.OnPaint(pevent);
-      if (imageToDraw != null)
-      {
-        Rectangle imageRect = new Rectangle(
-                imagePadding.Left,
-                imagePadding.Top,
-                ClientRectangle.Width - imagePadding.Horizontal,
-                ClientRectangle.Height - imagePadding.Vertical
-            );
+      base.OnPaint(e);
 
-        // Desplazar la imagen si el botón está presionado
+      Graphics g = e.Graphics;
+      g.SmoothingMode = SmoothingMode.AntiAlias;
+
+      Rectangle rect = new Rectangle(0, 0, Width - 1, Height - 1);
+
+      this.BackColor = Parent.BackColor;
+
+      using (GraphicsPath path = new GraphicsPath())
+      {
+        path.AddRoundedRectangle(rect, 5);
+
+        Color backgroundColor = isHovered ? Color.FromArgb(200, 116, 116, 116) : Color.FromArgb(0, 224, 224, 224);
+        using (SolidBrush brush = new SolidBrush(backgroundColor))
+        {
+          g.FillPath(brush, path);
+        }
+
         if (isPressed)
         {
-          imageRect.Offset(1, 1);
+          rect.Offset(1, 1);
+          using (Pen shadowPen = new Pen(Color.FromArgb(100, 105, 105, 105), 2))
+          {
+            g.DrawRectangle(shadowPen, rect);
+          }
         }
 
-        pevent.Graphics.DrawImage(imageToDraw, imageRect);
-      }
-      if (isPressed)
-      {
-        using (Pen pen = new Pen(Color.Gray, 2))
+        if (Image != null)
         {
-          pevent.Graphics.DrawLine(pen, 0, 0, Width, 0); // Top border
-          pevent.Graphics.DrawLine(pen, 0, 0, 0, Height); // Left border
+          // Aplicar el padding a la imagen
+          Rectangle imageRect = new Rectangle(
+            rect.Left + ImagePadding.Left,
+            rect.Top + ImagePadding.Top,
+            rect.Width - ImagePadding.Horizontal,
+            rect.Height - ImagePadding.Vertical
+          );
+          g.DrawImage(Image, imageRect);
         }
       }
     }
 
-    protected override void OnMouseDown(MouseEventArgs mevent)
+    protected override void OnMouseDown(MouseEventArgs e)
     {
-      if (mevent.Button == MouseButtons.Left)
+      base.OnMouseDown(e);
+      isPressed = true;
+      Invalidate();
+    }
+
+    protected override void OnMouseUp(MouseEventArgs e)
+    {
+      base.OnMouseUp(e);
+      isPressed = false;
+      Invalidate();
+
+      // Disparar el evento Click
+      if (ClientRectangle.Contains(e.Location))
       {
-        isPressed = true;
-        Invalidate();
+        OnClick(EventArgs.Empty);
       }
-      base.OnMouseDown(mevent);
     }
 
-    protected override void OnMouseUp(MouseEventArgs mevent)
+    protected override void OnMouseEnter(EventArgs e)
     {
-      if (mevent.Button == MouseButtons.Left)
-      {
-        ResetButtonState();
-      }
-      base.OnMouseUp(mevent);
+      base.OnMouseEnter(e);
+      isHovered = true;
+      Invalidate();
     }
 
-    protected override void OnMouseEnter(EventArgs eventargs)
+    protected override void OnMouseLeave(EventArgs e)
     {
-      BackColor = Color.FromArgb(20, Color.Gray);
-      base.OnMouseEnter(eventargs);
+      base.OnMouseLeave(e);
+      isHovered = false;
+      Invalidate();
     }
 
-    protected override void OnMouseLeave(EventArgs eventargs)
-    {
-      if (!ClientRectangle.Contains(PointToClient(Control.MousePosition)))
-      {
-        ResetButtonState();
-      }
-      base.OnMouseLeave(eventargs);
-    }
+    // Método protegido para disparar el evento Click
+    new protected virtual void OnClick(EventArgs e) => Click?.Invoke(this, e);
 
-    private void ResetButtonState()
+    public void ResetState()
     {
       isPressed = false;
-      BackColor = Color.Transparent;
+      isHovered = false;
       Invalidate();
     }
   }
