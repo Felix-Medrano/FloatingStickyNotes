@@ -2,6 +2,7 @@
 using FloatingStickyNotes.Core;
 using FloatingStickyNotes.Patterns.Command.Commands.BoardCommands;
 using FloatingStickyNotes.Patterns.Command.Commands.ConfigPanelCommands;
+using FloatingStickyNotes.Patterns.Command.Commands.NoteCommands;
 using FloatingStickyNotes.Patterns.Command.Interfaces;
 using FloatingStickyNotes.Views;
 
@@ -16,6 +17,7 @@ namespace FloatingStickyNotes
   {
     private Rectangle primaryScreen = Screen.PrimaryScreen.WorkingArea;
     private Stack<ICommand> commandEscStack = new Stack<ICommand>();
+    private Dictionary<Guid, Note> notesDictionary= new Dictionary<Guid, Note>();
     private bool isBoardMaximized = false;
     private bool isBoardShowned = true;
     private bool isConfigPanelOpen = false;
@@ -25,6 +27,7 @@ namespace FloatingStickyNotes
     private ConfigPanelShowCommand configPanelShowCommand;
     private BoardHideCommand boardHideCommand;
     private BoardMaximizeCommand boardMaximizeCommand;
+    private NoteCereateCommand noteCereateCommand;
 
     public Panel TopBar { get { return topBar; } }
     public Panel ConfigPanel { get { return configPanel; } }
@@ -50,9 +53,15 @@ namespace FloatingStickyNotes
 
       configPanelHideCommand = new ConfigPanelHideCommand(configPanel, menuBtn);
       configPanelShowCommand = new ConfigPanelShowCommand(configPanel, menuBtn);
+      noteCereateCommand = new NoteCereateCommand(this);
 
-
+#if DEBUG
+      commandEscStack.Push(new BoardHideCommand(this));
+      isBoardMaximized = true;
+      boardMaximizeCommand.Execute();
+#else
       boardHideCommand.Execute();
+#endif
 
       configPanel.Width = Helper.FSNConsts.CONFIG_PANEL_WIDTH;
       configPanel.Controls.Add(new ConfigPanel().GetPanel());
@@ -74,10 +83,13 @@ namespace FloatingStickyNotes
             commandEscStack.Push(configPanelHideCommand);
           }
           break;
-        case Keys.M: //Maximizar o Restaurar ventana
-          var maximizeCommand = new BoardMaximizeCommand(this, winBtn);
-          maximizeCommand.Execute();
+
+#if DEBUG
+        case (Keys.Control | Keys.C):
+          this.Close();
           break;
+#endif
+
         case Keys.Escape: //Ocultar panel(es)
           if (commandEscStack.Count > 0)
           {
@@ -85,6 +97,15 @@ namespace FloatingStickyNotes
             command.Execute();
           }
           break;
+
+        case Keys.M: //Maximizar o Restaurar ventana
+          boardMaximizeCommand.Execute();
+          break;
+
+        case Keys.N: //Crear nueva nota
+          noteCereateCommand.Execute();
+          break;
+
       }
       return base.ProcessCmdKey(ref msg, keyData);
     }
@@ -111,8 +132,8 @@ namespace FloatingStickyNotes
 
     private void maximizeBtn_Click(object sender, EventArgs e)
     {
-
       boardMaximizeCommand.Execute();
+      addBtn.Refresh();
     }
 
     private void menuBtn_Click(object sender, EventArgs e)
@@ -159,6 +180,11 @@ namespace FloatingStickyNotes
         boardMaximizeCommand.Execute();
         commandEscStack.Push(new BoardHideCommand(this));
       }
+    }
+
+    private void addBtn_Click(object sender, EventArgs e)
+    {
+      noteCereateCommand.Execute();
     }
   }
 }

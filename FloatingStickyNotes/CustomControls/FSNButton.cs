@@ -15,6 +15,11 @@ namespace FloatingStickyNotes.Controls
 
     private Image _image;
     private Padding _imagePadding = new Padding(0);
+    private Color _hoverColor = Color.FromArgb(200, 116, 116, 116);
+
+    private string _text = string.Empty;
+    private Font _font = new Font("Arial", 10);
+    private ContentAlignment _textAlign = ContentAlignment.MiddleCenter;
 
     private bool isPressed = false;
     private bool isHovered = false;
@@ -37,6 +42,54 @@ namespace FloatingStickyNotes.Controls
       set
       {
         _imagePadding = value;
+        Invalidate();
+      }
+    }
+
+    [Category("Appearance")]
+    [Description("Gets or sets the hover color of the button.")]
+    public Color HoverColor
+    {
+      get { return _hoverColor; }
+      set
+      {
+        _hoverColor = value;
+        Invalidate();
+      }
+    }
+
+    [Category("Appearance")]
+    [Description("Gets or sets the text displayed on the button.")]
+    public override string Text
+    {
+      get { return _text; }
+      set
+      {
+        _text = value;
+        Invalidate();
+      }
+    }
+
+    [Category("Appearance")]
+    [Description("Gets or sets the font of the text displayed on the button.")]
+    public override Font Font
+    {
+      get { return _font; }
+      set
+      {
+        _font = value;
+        Invalidate();
+      }
+    }
+
+    [Category("Appearance")]
+    [Description("Gets or sets the alignment of the text on the button.")]
+    public ContentAlignment TextAlign
+    {
+      get { return _textAlign; }
+      set
+      {
+        _textAlign = value;
         Invalidate();
       }
     }
@@ -66,7 +119,7 @@ namespace FloatingStickyNotes.Controls
       {
         path.AddRoundedRectangle(rect, 5);
 
-        Color backgroundColor = isHovered ? Color.FromArgb(200, 116, 116, 116) : Color.FromArgb(0, 224, 224, 224);
+        Color backgroundColor = isHovered ? HoverColor : Color.FromArgb(0, 224, 224, 224);
         using (SolidBrush brush = new SolidBrush(backgroundColor))
         {
           g.FillPath(brush, path);
@@ -75,22 +128,27 @@ namespace FloatingStickyNotes.Controls
         if (isPressed)
         {
           rect.Offset(1, 1);
-          using (Pen shadowPen = new Pen(Color.FromArgb(100, 105, 105, 105), 2))
-          {
-            g.DrawRectangle(shadowPen, rect);
-          }
+          //using (Pen shadowPen = new Pen(Color.FromArgb(100, 105, 105, 105), 2))
+          //{
+          //  g.DrawRectangle(shadowPen, rect);
+          //}
         }
 
         if (Image != null)
         {
-          // Aplicar el padding a la imagen
+          // Apply padding to the image
           Rectangle imageRect = new Rectangle(
-            rect.Left + ImagePadding.Left,
-            rect.Top + ImagePadding.Top,
-            rect.Width - ImagePadding.Horizontal,
-            rect.Height - ImagePadding.Vertical
-          );
+                    rect.Left + ImagePadding.Left,
+                    rect.Top + ImagePadding.Top,
+                    rect.Width - ImagePadding.Horizontal,
+                    rect.Height - ImagePadding.Vertical
+                );
           g.DrawImage(Image, imageRect);
+        }
+
+        if (!string.IsNullOrEmpty(Text))
+        {
+          TextRenderer.DrawText(g, Text, Font, rect, ForeColor, TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter);
         }
       }
     }
@@ -108,7 +166,7 @@ namespace FloatingStickyNotes.Controls
       isPressed = false;
       Invalidate();
 
-      // Disparar el evento Click
+      // Trigger the Click event
       if (ClientRectangle.Contains(e.Location))
       {
         OnClick(EventArgs.Empty);
@@ -129,7 +187,7 @@ namespace FloatingStickyNotes.Controls
       Invalidate();
     }
 
-    // Método protegido para disparar el evento Click
+    // Protected method to trigger the Click event
     new protected virtual void OnClick(EventArgs e) => Click?.Invoke(this, e);
 
     public void ResetState()

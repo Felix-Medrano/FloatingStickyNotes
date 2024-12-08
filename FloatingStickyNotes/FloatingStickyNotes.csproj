@@ -52,12 +52,16 @@
     <Compile Include="CustomControls\FSNButton.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Lib\FSNColors.cs" />
     <Compile Include="Lib\FSNConsts.cs" />
     <Compile Include="Lib\FSNEnums.cs" />
+    <Compile Include="Lib\FSNFunctions.cs" />
+    <Compile Include="Lib\UnsaveNote.cs" />
     <Compile Include="Patterns\Command\Commands\BoardCommands\BoardHideCommand.cs" />
     <Compile Include="Patterns\Command\Commands\BoardCommands\BoardMaximizeCommand.cs" />
     <Compile Include="Patterns\Command\Commands\ConfigPanelCommands\ConfigPanelHideCommand.cs" />
     <Compile Include="Patterns\Command\Commands\ConfigPanelCommands\ConfigPanelShowCommand.cs" />
+    <Compile Include="Patterns\Command\Commands\NoteCommands\NoteCereateCommand.cs" />
     <Compile Include="Patterns\Command\Interfaces\ICommand.cs" />
     <Compile Include="Patterns\Observer\Interfaces\IObserver.cs" />
     <Compile Include="Patterns\Observer\Interfaces\ISubject.cs" />
@@ -67,6 +71,9 @@
     <Compile Include="Patterns\Statse\ConfigPanel\ConfigPanelHideState.cs" />
     <Compile Include="Patterns\Statse\ConfigPanel\ConfigPanelShowState.cs" />
     <Compile Include="Patterns\Statse\Interfaces\IState.cs" />
+    <Compile Include="Patterns\Statse\NoteState\NoteCreateState.cs" />
+    <Compile Include="Patterns\Statse\NoteState\NoteEditState.cs" />
+    <Compile Include="Patterns\Statse\NoteState\NoteReadState.cs" />
     <Compile Include="Patterns\Statse\StateHandler.cs" />
     <Compile Include="Views\Board.cs">
       <SubType>Form</SubType>
@@ -83,6 +90,18 @@
     <Compile Include="Views\ConfigPanel.Designer.cs">
       <DependentUpon>ConfigPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Note.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Note.Designer.cs">
+      <DependentUpon>Note.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Props\ColorPaletteSelector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Props\IconSelector.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -98,6 +117,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\ConfigPanel.resx">
       <DependentUpon>ConfigPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Note.resx">
+      <DependentUpon>Note.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -129,6 +151,54 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\linea.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Informacion.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Corazon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Favorito.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Idea.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Contacto.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Musica.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Mando.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Trabajo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\clip.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Importante.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Correo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Reloj.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Codigo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PaletaColores.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\agregar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Ok.png" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

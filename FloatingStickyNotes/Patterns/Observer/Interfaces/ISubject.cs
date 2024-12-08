@@ -1,9 +1,9 @@
 ﻿namespace FloatingStickyNotes.Patterns.Observer.Interfaces
 {
-  public abstract class ISubject
+  public interface ISubject
   {
-    public abstract void Attach(IObserver observer);
-    public abstract void Detach(IObserver observer);
-    public abstract void Notify();
+    void Attach(IObserver observer);
+    void Detach(IObserver observer);
+    void Notify();
   }
 }

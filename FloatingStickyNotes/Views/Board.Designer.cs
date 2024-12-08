@@ -38,6 +38,7 @@
       this.mostrarTableroToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
       this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.addBtn = new FloatingStickyNotes.Controls.FSNButton();
       this.menuBtn = new FloatingStickyNotes.Controls.FSNButton();
       this.winBtn = new FloatingStickyNotes.Controls.FSNButton();
       this.closeBtn = new FloatingStickyNotes.Controls.FSNButton();
@@ -118,39 +119,60 @@
       this.salirToolStripMenuItem.Text = "Salir";
       this.salirToolStripMenuItem.Click += new System.EventHandler(this.salirToolStripMenuItem_Click);
       // 
+      // addBtn
+      // 
+      this.addBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+      this.addBtn.BackColor = System.Drawing.SystemColors.Control;
+      this.addBtn.BackgroundImage = global::FloatingStickyNotes.Properties.Resources.BoardBackgroundCenter;
+      this.addBtn.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(116)))), ((int)(((byte)(116)))), ((int)(((byte)(116)))));
+      this.addBtn.Image = global::FloatingStickyNotes.Properties.Resources.agregar;
+      this.addBtn.ImagePadding = new System.Windows.Forms.Padding(0);
+      this.addBtn.Location = new System.Drawing.Point(536, 340);
+      this.addBtn.Name = "addBtn";
+      this.addBtn.Size = new System.Drawing.Size(48, 48);
+      this.addBtn.TabIndex = 2;
+      this.addBtn.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+      this.addBtn.Click += new System.EventHandler(this.addBtn_Click);
+      // 
       // menuBtn
       // 
       this.menuBtn.BackColor = System.Drawing.Color.Gray;
+      this.menuBtn.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(116)))), ((int)(((byte)(116)))), ((int)(((byte)(116)))));
       this.menuBtn.Image = global::FloatingStickyNotes.Properties.Resources.PanelMenuOpen;
       this.menuBtn.ImagePadding = new System.Windows.Forms.Padding(0);
       this.menuBtn.Location = new System.Drawing.Point(8, 2);
       this.menuBtn.Name = "menuBtn";
       this.menuBtn.Size = new System.Drawing.Size(26, 26);
       this.menuBtn.TabIndex = 3;
+      this.menuBtn.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
       this.menuBtn.Click += new System.EventHandler(this.menuBtn_Click);
       // 
       // winBtn
       // 
       this.winBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
       this.winBtn.BackColor = System.Drawing.Color.Gray;
+      this.winBtn.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(116)))), ((int)(((byte)(116)))), ((int)(((byte)(116)))));
       this.winBtn.Image = global::FloatingStickyNotes.Properties.Resources.Maximizar;
       this.winBtn.ImagePadding = new System.Windows.Forms.Padding(3);
       this.winBtn.Location = new System.Drawing.Point(536, 2);
       this.winBtn.Name = "winBtn";
       this.winBtn.Size = new System.Drawing.Size(26, 26);
       this.winBtn.TabIndex = 2;
+      this.winBtn.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
       this.winBtn.Click += new System.EventHandler(this.maximizeBtn_Click);
       // 
       // closeBtn
       // 
       this.closeBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
       this.closeBtn.BackColor = System.Drawing.Color.Gray;
+      this.closeBtn.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(116)))), ((int)(((byte)(116)))), ((int)(((byte)(116)))));
       this.closeBtn.Image = global::FloatingStickyNotes.Properties.Resources.Cerrar;
       this.closeBtn.ImagePadding = new System.Windows.Forms.Padding(0);
       this.closeBtn.Location = new System.Drawing.Point(566, 2);
       this.closeBtn.Name = "closeBtn";
       this.closeBtn.Size = new System.Drawing.Size(26, 26);
       this.closeBtn.TabIndex = 1;
+      this.closeBtn.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
       this.closeBtn.Click += new System.EventHandler(this.closeBtn_Click);
       // 
       // Board
@@ -159,6 +181,7 @@
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
       this.ClientSize = new System.Drawing.Size(600, 400);
+      this.Controls.Add(this.addBtn);
       this.Controls.Add(this.configPanel);
       this.Controls.Add(this.topBar);
       this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -186,6 +209,7 @@
     private System.Windows.Forms.ToolStripMenuItem mostrarTableroToolStripMenuItem;
     private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
     private System.Windows.Forms.ToolStripMenuItem salirToolStripMenuItem;
+    private Controls.FSNButton addBtn;
   }
 }
 
